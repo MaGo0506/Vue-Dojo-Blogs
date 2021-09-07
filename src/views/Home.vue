@@ -9,6 +9,7 @@
 
 <script>
 import { computed, ref } from '@vue/reactivity';
+import { watch, watchEffect } from '@vue/runtime-core';
 
 
 export default {
@@ -16,6 +17,14 @@ export default {
   setup() {
     const search = ref('')
     const names = ref([ 'mario', 'yoshi', 'luigi', 'toad', 'bowser', 'koopa', 'peach' ])
+
+    watch(search, () => {
+      console.log('watch function ran');
+    })
+
+    watchEffect(() => {
+      console.log('watchEffect function ran', search.value);
+    })
 
     const matchingNames = computed(() => {
       return names.value.filter((name) => name.includes(search.value))
