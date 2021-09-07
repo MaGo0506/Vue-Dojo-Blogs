@@ -3,6 +3,8 @@
     home
     <p ref="para">My name is {{ name }} and my age is {{ age }}</p>
     <button @click="handleClick">Click Me</button>
+    <button @click="age++">Add 1 to Age</button>
+    <input type="text" v-model="name">
   </div>
 </template>
 
@@ -13,20 +15,18 @@ import { ref } from '@vue/reactivity';
 export default {
   name: 'Home',
   setup() {
-    console.log(this);
 
-    const para = ref(null);
+    // const para = ref(null);
 
-    let name = 'mario';
-    let age = 20;
+    const name = ref('mario');
+    const age = ref(20);
 
     const handleClick = () => {
-      console.log(para, para.value);
-      para.value.classList.add('active');
-      para.value.textContent = 'hello, ninjas';
+      name.value = 'yoshi';
+      age.value = 30
     }
 
-    return { name, age, handleClick, para };
+    return { name, age, handleClick };
   }
 }
 </script>
