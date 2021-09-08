@@ -1,42 +1,26 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <input type="text" v-model="search">
-    <p>Search term - {{ search }}</p>
-    <div v-for="name in matchingNames" :key="name">{{ name }}</div>
-    <button @click="handleClick">Stop watching</button>
+    <PostList :posts="posts" />
   </div>
 </template>
 
 <script>
-import { computed, ref } from '@vue/reactivity';
-import { watch, watchEffect } from '@vue/runtime-core';
+import PostList from '../components/PostList.vue'
+import { ref } from '@vue/reactivity';
 
 
 export default {
   name: 'Home',
+  components: { PostList },
   setup() {
-    const search = ref('')
-    const names = ref([ 'mario', 'yoshi', 'luigi', 'toad', 'bowser', 'koopa', 'peach' ])
+    const posts = ref([ 
+        {title: 'Welcome to the blog', body: 'Lorem ipsum', id: 1},
+        {title: 'Top 5 CSS tipts', body: 'Lorem ipsum', id: 2},
+     ])
 
-    const stopWatch = watch(search, () => {
-      console.log('watch function ran');
-    })
-
-    const stopEffect = watchEffect(() => {
-      console.log('watchEffect function ran', search.value);
-    })
-
-    const matchingNames = computed(() => {
-      return names.value.filter((name) => name.includes(search.value))
-    })
-
-    const handleClick = () => {
-      stopWatch()
-      stopEffect()
-    }
-
-    return { names, search, matchingNames, handleClick };
+    
+    return { posts };
   }
 }
 </script>
